@@ -1,0 +1,4 @@
+case_id,date_utc,era5_wind_u_ms,era5_wind_v_ms,era5_blh_m,scaqmd_episode_note,other_notes
+case1_smoke,2025-01-09,,,,,
+case2_plant,2025-07-23,,,,,
+case3_city,2025-07-23,,,,,

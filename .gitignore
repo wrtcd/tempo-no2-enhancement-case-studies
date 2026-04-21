@@ -1,0 +1,16 @@
+# Large TEMPO inputs (obtain from NASA Earthdata)
+*.nc
+
+# Python
+__pycache__/
+*.py[cod]
+.smoke/
+smoke/
+
+# GDAL sidecars (regenerated)
+*.tif.aux.xml
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.cursor/
