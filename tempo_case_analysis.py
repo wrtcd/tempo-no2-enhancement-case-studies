@@ -48,6 +48,7 @@ def analyze_case(
     histogram_bins: int = 40,
     write_map: bool = True,
     append_csv: bool = True,
+    runs_csv: Path | None = None,
 ) -> dict:
     out_dir = out_dir or tif_path.parent
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -62,6 +63,7 @@ def analyze_case(
     n_valid = int(np.count_nonzero(vm))
     n_positive = int(np.count_nonzero(positive))
     footprint_km2 = n_valid * area_m2 / 1e6
+    vdat = arr[vm]
 
     stats: dict = {
         "case_id": case_id,
@@ -73,6 +75,11 @@ def analyze_case(
         "n_valid_pixels": n_valid,
         "n_positive_pixels": n_positive,
         "footprint_area_km2": footprint_km2,
+        "min_kg_all_valid": float(np.min(vdat)),
+        "max_kg_all_valid": float(np.max(vdat)),
+        "median_kg_all_valid": float(np.median(vdat)),
+        "sum_kg_all_valid": integrated_all_kg,
+        "sum_kg_positive_only": integrated_positive_kg,
         "integrated_total_kg_valid": integrated_all_kg,
         "integrated_total_tonnes_valid": integrated_all_kg / 1000.0,
         "integrated_total_kg_positive_only": integrated_positive_kg,
@@ -101,13 +108,18 @@ def analyze_case(
     ax.set_title(f"{case_id}: distribution of positive NO₂ mass per pixel (kg)")
     ax.grid(axis="y", alpha=0.35)
     txt = (
+        f"min (all valid) = {stats['min_kg_all_valid']:.4g} kg\n"
+        f"max (all valid) = {stats['max_kg_all_valid']:.4g} kg\n"
+        f"median (all valid) = {stats['median_kg_all_valid']:.4g} kg\n"
+        f"Σ all valid = {integrated_all_kg:.4g} kg\n"
+        f"--- positive only ---\n"
         f"pixels (> 0) = {n_positive:,}\n"
         f"min = {stats['positive_min_kg']:.4g} kg\n"
         f"max = {stats['positive_max_kg']:.4g} kg\n"
         f"mean = {stats['positive_mean_kg']:.4g} kg\n"
         f"median = {stats['positive_median_kg']:.4g} kg\n"
-        f"Σ (valid) = {integrated_all_kg:.4g} kg\n"
-        f"Σ (valid) = {integrated_all_kg/1000:.4g} t"
+        f"Σ positive = {integrated_positive_kg:.4g} kg\n"
+        f"Σ positive = {integrated_positive_kg/1000:.4g} t"
     )
     ax.text(
         0.98, 0.97, txt, transform=ax.transAxes, fontsize=9,
@@ -132,21 +144,22 @@ def analyze_case(
         stats["map_png"] = ""
 
     if append_csv:
-        RESULTS.mkdir(parents=True, exist_ok=True)
+        runs_path = (runs_csv or RUNS_CSV).resolve()
+        runs_path.parent.mkdir(parents=True, exist_ok=True)
         row = {
             "run_utc": datetime.now(timezone.utc).isoformat(),
             **{k: stats[k] for k in stats if k not in ("histogram_png", "map_png")},
             "histogram_png": stats["histogram_png"],
             "map_png": stats.get("map_png", ""),
         }
-        file_exists = RUNS_CSV.is_file()
+        file_exists = runs_path.is_file()
         fieldnames = list(row.keys())
-        with RUNS_CSV.open("a", newline="", encoding="utf-8") as f:
+        with runs_path.open("a", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=fieldnames)
             if not file_exists:
                 w.writeheader()
             w.writerow(row)
-        stats["runs_csv"] = str(RUNS_CSV.resolve())
+        stats["runs_csv"] = str(runs_path)
 
     return stats
 
@@ -157,7 +170,13 @@ def main() -> None:
     p.add_argument("--case-id", default="case", help="Case label (e.g. case1_smoke)")
     p.add_argument("--out-dir", type=Path, default=None, help="Output directory for PNGs")
     p.add_argument("--no-map", action="store_true", help="Skip map PNG")
-    p.add_argument("--no-csv", action="store_true", help="Do not append results/case_runs.csv")
+    p.add_argument("--no-csv", action="store_true", help="Do not append to results/case_runs.csv")
+    p.add_argument(
+        "--runs-csv",
+        type=Path,
+        default=None,
+        help="Override results CSV (default: results/case_runs.csv)",
+    )
     args = p.parse_args()
 
     s = analyze_case(
@@ -166,6 +185,7 @@ def main() -> None:
         out_dir=args.out_dir,
         write_map=not args.no_map,
         append_csv=not args.no_csv,
+        runs_csv=args.runs_csv,
     )
     for k in ("integrated_total_tonnes_valid", "footprint_area_km2", "histogram_png", "map_png"):
         print(f"{k}: {s.get(k, '')}")

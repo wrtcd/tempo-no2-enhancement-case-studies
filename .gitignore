@@ -10,6 +10,9 @@ smoke/
 # GDAL sidecars (regenerated)
 *.tif.aux.xml
 
+# Office lock files
+~$*
+
 # OS / IDE
 .DS_Store
 Thumbs.db

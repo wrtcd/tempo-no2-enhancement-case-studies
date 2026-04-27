@@ -15,6 +15,8 @@ git clone https://github.com/wrtcd/tempo-no2-enhancement-case-studies.git
 | Doc | Content |
 |-----|---------|
 | [`METHODS_TEMPO.md`](METHODS_TEMPO.md) | Locked workflow, case definitions |
+| [`CASE_STUDIES_WRITEUP.md`](CASE_STUDIES_WRITEUP.md) | **Full narrative:** time/date per case, what we did, 3×3 results, reproduction |
+| [`results/case_study_time_context.csv`](results/case_study_time_context.csv) | **Year, UTC, Pacific local, granule** (one row per case) |
 | [`results/RESULTS_AND_INTERPRETATION.md`](results/RESULTS_AND_INTERPRETATION.md) | Results table and interpretation |
 | [`MANIFEST.md`](MANIFEST.md) | Data paths, scripts, **remote URL** |
 
@@ -22,7 +24,8 @@ git clone https://github.com/wrtcd/tempo-no2-enhancement-case-studies.git
 
 - Python: `py -3 -m pip install -r requirements.txt`
 - Cases 2–3 preprocess: see [`casestudy2/CASE2_PREPROCESS.md`](casestudy2/CASE2_PREPROCESS.md)
-- Analysis: `tempo_case_analysis.py`; figures bundle: `export_results_bundle.py`
+- Analysis: `tempo_case_analysis.py`; **3×3 (cases × VCD path):** `py -3 scripts/generate_3x3_matrix.py` → `results/comparison_table_3x3.csv`
+- Figures bundle: `export_results_bundle.py`
 
 ## Data notice
 

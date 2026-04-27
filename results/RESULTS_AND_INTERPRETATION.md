@@ -1,6 +1,8 @@
 # Results summary and interpretation
 
-This file implements the **writing / interpretation** deliverable for the three TEMPO NO₂ case studies. Numbers below come from **`comparison_table.csv`** (regenerate with `py -3 refresh_comparison_table.py` after new runs).
+This file implements the **writing / interpretation** deliverable for the three TEMPO NO₂ case studies. **Granule times and year/date in Pacific local** are tabulated in [`case_study_time_context.csv`](case_study_time_context.csv). A full project narrative (methods, 3×3, reproduction) is in [`../CASE_STUDIES_WRITEUP.md`](../CASE_STUDIES_WRITEUP.md).
+
+Numbers in the first table below follow the **legacy** single-pathway run from **`comparison_table.csv`** (regenerate with `py -3 refresh_comparison_table.py` after new runs). The **3×3** pathway comparison is in **`comparison_table_3x3.csv`** (from `py -3 scripts/generate_3x3_matrix.py`).
 
 ## Comparison table (snapshot)
 

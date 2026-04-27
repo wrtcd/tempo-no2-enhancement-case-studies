@@ -34,7 +34,7 @@ These values are the **authoritative** Case 1 definition for cross-case comparis
 | Window center (approx.) | 118.629°W, 34.044°N |
 | Sample size caveat | **n = 9 pixels** — use distributions with care; emphasize integrated mass + maps |
 
-Re-run `tempo_case_analysis.py` on `casestudy1/massno2-eaton-clipped.tif` after any reclip; refresh `results/comparison_table.csv`.
+Re-run `tempo_case_analysis.py` on `casestudy1/massno2-eaton-clipped.tif` after any reclip; refresh `results/comparison_table.csv`. For the **3 case studies × 3 VCD pathways** matrix, use `py -3 scripts/generate_3x3_matrix.py` and read `results/comparison_table_3x3.csv`.
 
 ## Cases 2–3 — locked (Walnut Creek plant, Los Angeles urban)
 
@@ -73,6 +73,8 @@ Cases **2** and **3** use the **same TEMPO granule** and the **same preprocessin
 ## Further documentation
 
 - [`results/RESULTS_AND_INTERPRETATION.md`](results/RESULTS_AND_INTERPRETATION.md) — methods contrast, interpretation, optional sensitivity note.
+- [`results/case_study_time_context.csv`](results/case_study_time_context.csv) — UTC and Pacific local scene times, granule ids, season.
+- [`CASE_STUDIES_WRITEUP.md`](CASE_STUDIES_WRITEUP.md) — full write-up and 3×3 snapshot.
 - [`MANIFEST.md`](MANIFEST.md) — data file locations.
 - [`INVENTORY_CONTEXT.md`](INVENTORY_CONTEXT.md) — optional NEI/EIA disclaimer text.
 - [`results/confounders_template.csv`](results/confounders_template.csv) — optional wind/BLH fields.
