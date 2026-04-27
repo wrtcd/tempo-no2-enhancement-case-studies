@@ -40,11 +40,15 @@ NODATA = -1.0e30
 EPS = 1e-30
 
 
+# Parent folder for eaton-vcd-adj and siblings (override with TEMPO_CASE_WORK).
+_DEFAULT_CASE_WORK = Path(r"C:\Users\aeaturu\Desktop\WORK April 2026\geometric corrections")
+
+
 def _work_root() -> Path:
     p = os.environ.get("TEMPO_CASE_WORK", "")
     if p:
         return Path(p)
-    return Path(r"C:\Users\aeaturu\Desktop\WORK April 2026")
+    return _DEFAULT_CASE_WORK
 
 
 def _eaton_vcd_adj() -> Path:

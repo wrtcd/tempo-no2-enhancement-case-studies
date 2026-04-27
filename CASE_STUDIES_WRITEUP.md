@@ -73,7 +73,7 @@ The following integrated totals (tonnes) come from `results/comparison_table_3x3
 ## 4. Reproduction
 
 - **Environment:** Python 3 with `requirements.txt`; Cases 2–3 three-pathway mass may require GDAL on `PATH` and the `eaton-vcd-adj` adjacency for `vcd_adj` (see `scripts/case23_mass_three_vcd.py` and `scripts/generate_3x3_matrix.py` headers).
-- **Regenerate 3×3 table:** from repository root, `py -3 scripts/generate_3x3_matrix.py` (set `TEMPO_CASE_WORK` if your `no2-plume-vcd-branches` tree is not under the default parent folder; see script).
+- **Regenerate 3×3 table:** from repository root, `py -3 scripts/generate_3x3_matrix.py`. The default parent for finding `no2-plume-vcd-branches/outputs/08_mass` and related paths is `WORK April 2026\geometric corrections` unless you set `TEMPO_CASE_WORK` to another directory.
 - **Single-raster analysis:** `py -3 tempo_case_analysis.py --help` (use `--runs-csv` to append to a chosen runs file).
 
 ---

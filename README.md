@@ -25,6 +25,7 @@ git clone https://github.com/wrtcd/tempo-no2-enhancement-case-studies.git
 - Python: `py -3 -m pip install -r requirements.txt`
 - Cases 2–3 preprocess: see [`casestudy2/CASE2_PREPROCESS.md`](casestudy2/CASE2_PREPROCESS.md)
 - Analysis: `tempo_case_analysis.py`; **3×3 (cases × VCD path):** `py -3 scripts/generate_3x3_matrix.py` → `results/comparison_table_3x3.csv`
+- **Default work root** (sibling repos: `no2-plume-vcd-branches`, `eaton-vcd-adj`, etc.): `WORK April 2026\geometric corrections`. Override: `set TEMPO_CASE_WORK=C:\path\to\parent`
 - Figures bundle: `export_results_bundle.py`
 
 ## Data notice

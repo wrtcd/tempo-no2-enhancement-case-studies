@@ -24,9 +24,13 @@ RUNS_3x3 = RESULTS / "case_runs_3x3.csv"
 TABLE_3x3 = RESULTS / "comparison_table_3x3.csv"
 
 
+# Parent folder for no2-plume-vcd-branches, eaton-2, eaton, eaton-vcd-adj (override with TEMPO_CASE_WORK).
+_DEFAULT_CASE_WORK = Path(r"C:\Users\aeaturu\Desktop\WORK April 2026\geometric corrections")
+
+
 def _work() -> Path:
     e = os.environ.get("TEMPO_CASE_WORK", "")
-    return Path(e) if e else Path(r"C:\Users\aeaturu\Desktop\WORK April 2026")
+    return Path(e) if e else _DEFAULT_CASE_WORK
 
 
 def _plume_mass_paths() -> dict[str, Path]:
